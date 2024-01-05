@@ -9,7 +9,17 @@ app.use(express.json());
 }
 */
 app.get('/api/get-env', (req, res) => {
-   //Write your code here
+    try {
+        const secretNumber = process.env.NUMBER;
+        if (secretNumber !== undefined) {
+            res.status(200).json({ number: secretNumber });
+        } else {
+            res.status(404).json({ err: 'Not Found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(404).json({ err: 'Not Found' });
+    }
 });
 
 module.exports = app;
